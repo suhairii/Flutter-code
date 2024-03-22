@@ -1,30 +1,67 @@
-class Point {
-  int _x = 0;
-  int _y = 0;
-  Point() {
-    this._x = 0;
-    this._y = 0;
-  }
-  Point.createInstance(int x, int y) {
-    this._x = x;
-    this._y = y;
-  }
-  void setLocation(int xValue, int yValue) {
-    this._x = xValue;
-    this._y = yValue;
-  }
-
-  Point _clone() {
-    return Point.createInstance(this._x, this._y);
-  }
+import 'package:flutter/material.dart';
+void main() {
+ runApp(const MyApp());
 }
-
-void main(List<String> args) {
-  Point a, b, c;
-  a = Point();
-  print('Titik a terletak di koordinat (${a._x}, ${a._y})');
-  b = Point.createInstance(2, 3);
-  print('Titik b terletak di koordinat (${b._x}, ${b._y})');
-  c = b._clone();
-  print('Titik c terletak di koordinat (${c._x}, ${c._y})');
+class MyApp extends StatelessWidget {
+ const MyApp({Key? key}) : super(key: key);
+ @override
+ Widget build(BuildContext context) {
+ return MaterialApp(
+ title: 'EdgeInsets.all App',
+ theme: ThemeData(
+ primarySwatch: Colors.blue,
+ visualDensity: VisualDensity.adaptivePlatformDensity,
+ ),
+ home: const Home(),
+ );
+ }
+}
+class Home extends StatelessWidget {
+ const Home({Key? key}) : super(key: key);
+ @override
+ Widget build(BuildContext context) {
+ return Scaffold(
+ appBar: AppBar(
+ title: const Text('Metode EdgeInsets.all'),
+ ),
+ body: Row(
+271
+ children: <Widget>[
+ Container(
+ color: Colors.tealAccent,
+ margin: const EdgeInsets.all(10.0),
+ padding: const EdgeInsets.all(3.0),
+ child: ElevatedButton(
+ child: const Text('Button 1'),
+ onPressed: () {},
+ ),
+ ),
+ Container(
+ margin: const EdgeInsets.all(5.0),
+ padding: const EdgeInsets.all(10.0),
+ decoration: BoxDecoration(
+ border: Border.all(
+ width: 5.0,
+ color: Colors.red,
+ ),
+ ),
+ child: ElevatedButton(
+ child: const Text('Button 2'),
+ onPressed: () {},
+ ),
+ ),
+ Container(
+ color: Colors.tealAccent,
+ margin: const EdgeInsets.all(10.0),
+ padding: const EdgeInsets.all(3.0),
+ child: ElevatedButton(
+ child: const Text('Button 3'),
+ onPressed: () {},
+ ),
+ ),
+ ],
+ ),
+ );
+ }
+272
 }

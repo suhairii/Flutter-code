@@ -5,34 +5,64 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Text Widget App',
+      title: 'EdgeInsets.all App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Demo Text Widget'),
-        ),
-       , body: const Center(
-          child: Text(
-            'Rekayasa Perangkat Lunak',
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-              fontSize: 30.0,
-              fontStyle: FontStyle.italic,
-              color: Colors.red,
-            ),
-          ),
-        ),
-        ),
+      home: const Home(),
     );
   }
 }
 
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Metode EdgeInsets.all'),
+      ),
+      body: Row(
+        children: <Widget>[
+          Container(
+            color: Colors.tealAccent,
+            margin: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(3.0),
+            child: ElevatedButton(
+              child: const Text('Button 1'),
+              onPressed: () {},
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 5.0,
+                color: Colors.red,
+              ),
+            ),
+            child: ElevatedButton(
+              child: const Text('Button 2'),
+              onPressed: () {},
+            ),
+          ),
+          Container(
+            color: Colors.tealAccent,
+            margin: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(3.0),
+            child: ElevatedButton(
+              child: const Text('Button 3'),
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
