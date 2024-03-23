@@ -1,7 +1,7 @@
-List<int> reverse(List<int> list) {
+List<int> reverse(List<int> data) {
   List<int> result = [];
-  for (int i = list.length - 1; i >= 0; i--) {
-    result.add(list[i]);
+  for (int i = data.length - 1; i >= 0; i--) {
+    result.add(data[i]);
   }
   return result;
 }
