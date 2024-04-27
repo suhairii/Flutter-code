@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:widget_lanjutan/second.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,10 +33,10 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        useMaterial3: false,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Percobaan Menggunakan Widget'),
     );
   }
 }
@@ -55,71 +60,184 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String _name = '';
+  final TextEditingController _controller = TextEditingController();
+  bool _checkboxVal1 = false;
+  bool _checkboxVal2 = false;
+  bool _checkboxVal3 = false;
+  bool _checkboxVal4 = false;
+  int _selected = -1;
+  String _jeniskelamin = "-";
+  final List<String> settings = ['Wi-Fi', 'Data Seluler', 'Mode Pesawat'];
+  List<bool> settingValues = [false, false, false];
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  List<String> list = [];
+  String text = '';
+  void showData() {
+    text = '';
+    for (int i = 0; i < list.length; i++) {
+      text += '${list[i]}';
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+  Widget build(BuildContext) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text('Percobaan Menggunakan Widget'),
+        // backgroundColor: Colors.green,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                controller: _controller,
+                onChanged: (String value) {
+                  _name = value;
+                },
+                decoration: const InputDecoration(
+                    hintText: 'Masukkan nama anda!',
+                    hintStyle: TextStyle(fontStyle: FontStyle.normal),
+                    labelText: 'Nama Anda',
+                    icon: Icon(Icons.person_pin),
+                    prefixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder()),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              const Text('Bahasa pemrograman yang dikuasai:'),
+              CheckboxListTile(
+                  value: _checkboxVal1,
+                  title: const Text('Python'),
+                  activeColor: Colors.greenAccent,
+                  secondary: Icon(Icons.language),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _checkboxVal1 = value!;
+                    });
+                    if (this._checkboxVal1 == true) {
+                      list.add(' Python');
+                    } else {
+                      list.remove(' Python');
+                    }
+                    showData();
+                  }),
+              CheckboxListTile(
+                  value: _checkboxVal2,
+                  title: const Text('Java'),
+                  activeColor: Colors.greenAccent,
+                  secondary: Icon(Icons.language),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _checkboxVal2 = value!;
+                    });
+                    if (this._checkboxVal2 == true) {
+                      list.add(' Java');
+                    } else {
+                      list.remove(' Java');
+                    }
+                    showData();
+                  }),
+              CheckboxListTile(
+                  value: _checkboxVal3,
+                  title: const Text('Dart'),
+                  activeColor: Colors.greenAccent,
+                  secondary: Icon(Icons.language),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _checkboxVal3 = value!;
+                    });
+                    if (this._checkboxVal3 == true) {
+                      list.add(' Dart');
+                    } else {
+                      list.remove(' Dart');
+                    }
+                    showData();
+                  }),
+              CheckboxListTile(
+                  value: _checkboxVal4,
+                  title: const Text('PHP'),
+                  activeColor: Colors.greenAccent,
+                  secondary: Icon(Icons.language),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _checkboxVal4 = value!;
+                    });
+                    if (this._checkboxVal4 == true) {
+                      list.add(' PHP');
+                    } else {
+                      list.remove(' PHP');
+                    }
+                    showData();
+                  }),
+              // ElevatedButton(
+              //   child: const Text('Submit'),
+              //   onPressed: () {
+              //     showDialog(
+              //         context: context,
+              //         builder: (BuildContext) {
+              //           return AlertDialog(
+              //             content: Text("Hallo Apa kabar $_name"),
+              //           );
+              //         });
+              //   },
+              // ),
+              Container(height: 10.0),
+              const Text('Jenis Kelamin'),
+              RadioListTile(
+                  value: 0,
+                  groupValue: _selected,
+                  title: const Text('Laki-laki'),
+                  activeColor: Colors.greenAccent,
+                  secondary: Icon(Icons.person),
+                  onChanged: (int? value) {
+                    setState(() {
+                      _selected = value!;
+                      _jeniskelamin = 'Laki-laki';
+                    });
+                  }),
+              RadioListTile(
+                  value: 1,
+                  groupValue: _selected,
+                  title: const Text('Perempuan'),
+                  activeColor: Colors.greenAccent,
+                  secondary: Icon(Icons.person),
+                  onChanged: (int? value) {
+                    setState(() {
+                      _selected = value!;
+                      _jeniskelamin = 'Perempuan';
+                    });
+                  }),
+
+              Container(
+                height: 10.0,
+              ),
+              Text('Jenis Kelamin Anda: $_jeniskelamin'),
+              Text('Bahasa Yang Dikuasai: $text'),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SecondPage()),
+                  );
+                },
+                child: Text('Next Page'),
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
   }
 }

@@ -3,57 +3,74 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MyApp());
 }
-// Muhammad Suhairi
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Profil dan Biodata',
+      title: 'Deskripsi Hari',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Profil dan Biodata'),
+          title: Text('Deskripsi Hari'),
+          backgroundColor: Colors.green,
         ),
         body: Center(
-          child: ProfilBiodata(),
+          child: DeskripsiHari(),
         ),
       ),
     );
   }
 }
 
-class ProfilBiodata extends StatelessWidget {
+class DeskripsiHari extends StatelessWidget {
+  final List<String> days = [
+    'Senin',
+    'Selasa',
+    'Rabu',
+    'Kamis',
+    'Jumat',
+    'Sabtu',
+    'Minggu',
+  ];
+
+  final Map<String, String> descriptions = {
+    'Senin': 'Hari yang luar biasa untuk memulai pekerjaanmu.',
+    'Selasa': 'Tetap semangat mengerjakan tugas.',
+    'Rabu': 'Selalu bahagia dan bersyukur dengan apa yang telah diperoleh.',
+    'Kamis': 'Kerja keras untuk menggapai cita-cita.',
+    'Jumat': 'Jangan lupa untuk beribadah.',
+    'Sabtu': 'Selamat weekend.',
+    'Minggu': 'Manfaatkan hari minggumu untuk istirahat.',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CircleAvatar(
-          radius: 70,
-          backgroundImage: AssetImage(
-              'images/profile.jpg'), 
-        ),
-        SizedBox(height: 20),
-        Text(
-          'Nama Lengkap: Muhammad Suhairi',
-          style: TextStyle(fontSize: 20),
-        ),
-        Text(
-          'Tempat Tanggal Lahir: Teluk Lecah, 14 Januari 2004',
-          style: TextStyle(fontSize: 14),
-        ),
-        Text(
-          'Email: suhairi14000@gmail.com',
-          style: TextStyle(fontSize: 16),
-        ),
-        Text(
-          'Nomor HP: +62 82171300428',
-          style: TextStyle(fontSize: 16),
-        ),
-        Text(
-          'Hobi: Menulis',
-          style: TextStyle(fontSize: 16),
-        ),
-      ],
+      children: days.map((day) {
+        return ElevatedButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(day),
+                  content: Text(descriptions[day] ?? ''),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Tutup'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Text(day),
+        );
+      }).toList(),
     );
   }
 }

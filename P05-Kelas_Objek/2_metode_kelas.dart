@@ -1,6 +1,6 @@
 class Point {
-  int? x;
-  int? y;
+  late int x;
+  late int y;
   void setLocation(int xValue, int yValue) {
     x = xValue;
     y = yValue;
