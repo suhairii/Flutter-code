@@ -6,49 +6,24 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: false,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Kalkulator UTS Suhairi'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  const MyHomePage({Key? key, required this.title});
 
   final String title;
 
@@ -92,19 +67,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildButton(String buttonText, Color buttonColor) {
-    return Expanded(
+    return Flexible(
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () => buttonPressed(buttonText),
           child: Text(
             buttonText,
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                EdgeInsets.all(24)),
+                const EdgeInsets.all(16)),
           ),
         ),
       ),
@@ -115,16 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Complex Calculator'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
         actions: [
           IconButton(
-            icon: Icon(Icons.history),
+            icon: const Icon(Icons.history),
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('History'),
+                    title: const Text('History'),
                     content: Container(
                       width: double.minPositive,
                       height: 300.0,
@@ -140,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     actions: <Widget>[
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        child: Text('Close'),
+                        child: const Text('Close'),
                       ),
                     ],
                   );
@@ -154,18 +130,24 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Container(
             alignment: Alignment.centerRight,
-            padding: EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+            padding: const EdgeInsets.symmetric(vertical: 90, horizontal: 24),
             child: Text(
               _output,
-              style: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
           ),
+          const Divider(
+            thickness: 2,
+            color: Colors.black,
+          ),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.all(12),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       buildButton('7', Colors.grey),
                       buildButton('8', Colors.grey),
@@ -174,6 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       buildButton('4', Colors.grey),
                       buildButton('5', Colors.grey),
@@ -182,6 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       buildButton('1', Colors.grey),
                       buildButton('2', Colors.grey),
@@ -190,6 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       buildButton('C', Colors.red),
                       buildButton('0', Colors.grey),
